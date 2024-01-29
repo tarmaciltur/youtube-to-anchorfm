@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const env = require('../environment-variables');
 const { compareDates } = require('../dateutils');
 const { isEmpty } = require('../stringutils');
+const fs = require('fs');
 
 function addUrlToDescription(youtubeVideoInfo) {
   return env.URL_IN_DESCRIPTION
@@ -88,7 +89,9 @@ async function postEpisode(youtubeVideoInfo) {
     if (page !== undefined) {
       console.log('Screenshot base64:');
       const screenshotBase64 = await page.screenshot({ encoding: 'base64' });
-      console.log(`data:image/png;base64,${screenshotBase64}`);
+      content = `<img src="data:image/png;base64,${screenshotBase64}" />`
+      fs.writeFileSync('./screenshot.html', content);
+      console.log('Created file screenshot.html');
     }
     throw new Error(`Unable to post episode to anchorfm: ${err}`);
   } finally {
