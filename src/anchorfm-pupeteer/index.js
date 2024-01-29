@@ -112,6 +112,10 @@ async function postEpisode(youtubeVideoInfo) {
     await clickSelector(page, 'div[aria-label="Cuadro de diálogo modal de selección del idioma"] a[data-testid="language-option-en"]');
   }
 
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   async function login() {
     console.log('-- Accessing Spotify for Podcasters login page');
     await clickXpath(page, '//button[contains(text(), "Continue")]');
