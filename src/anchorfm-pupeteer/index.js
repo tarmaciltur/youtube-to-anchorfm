@@ -117,8 +117,8 @@ async function postEpisode(youtubeVideoInfo) {
   }
 
   async function login() {
-    console.log('-- Accessing Spotify for Podcasters login page');
-    await clickXpath(page, '//button[contains(text(), "Continue")]');
+    console.log('-- Accessing new Spotify login page for podcasts');
+    await clickXpath(page, '//span[contains(text(), "Continue with Spotify")]/parent::button');
 
     console.log('-- Logging in');
     /* The reason for the wait is because
@@ -126,10 +126,16 @@ async function postEpisode(youtubeVideoInfo) {
     and because pupeteer treats the page as loaded(or navigated to)
     even when the form is not showed
     */
-    await page.waitForSelector('#email');
-    await page.type('#email', env.ANCHOR_EMAIL);
-    await page.type('#password', env.ANCHOR_PASSWORD);
-    await clickSelector(page, 'button[type=submit]');
+    await page.waitForSelector('#login-username');
+    await page.type('#login-username', env.ANCHOR_EMAIL, { delay: 100 });
+    await page.type('#login-password', env.ANCHOR_PASSWORD, { delay: 100 });
+    await sleep(1000);
+
+    await clickSelector(page, 'button[id="login-button"]');
+    await page.waitForNavigation();
+
+    // Adds click to button in authorization page
+    await clickSelector(page, 'button[data-encore-id="buttonPrimary"]');
     await page.waitForNavigation();
     console.log('-- Logged in');
   }
