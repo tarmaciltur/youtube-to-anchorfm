@@ -76,8 +76,22 @@ async function downloadAudio(videoId) {
   }
 }
 
+async function getVideoList(channelUrl) {
+  const promise = youtubedl(
+    channelUrl,
+    {
+      downloadArchive: env.DOWNLOADED_VIDEO_LIST_FILE,
+      flatPlaylist: true,
+      print: 'id'
+    }
+  );
+
+  return promise;
+}
+
 module.exports = {
   getVideoInfo,
   downloadThumbnail,
   downloadAudio,
+  getVideoList,
 };

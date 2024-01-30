@@ -18,6 +18,8 @@ const defaultValues = {
   THUMBNAIL_FILE_FORMAT: 'jpg',
   THUMBNAIL_FILE_TEMPLATE: 'thumbnail.%(ext)s',
   PUPETEER_HEADLESS: true,
+  CHANNEL_URL: '',
+  DOWNLOADED_VIDEO_LIST_FILE: 'downloaded-videos'
 };
 
 const dotEnvVariables = parseDotEnvVariables();
@@ -84,4 +86,6 @@ module.exports = {
     getDotEnvironmentVariable('THUMBNAIL_FILE_FORMAT')
   ),
   PUPETEER_HEADLESS: getBoolean(getDotEnvironmentVariable('PUPETEER_HEADLESS')),
+  CHANNEL_URL: getDotEnvironmentVariable('CHANNEL_URL'),
+  DOWNLOADED_VIDEO_LIST_FILE: getDotEnvironmentVariable('DOWNLOADED_VIDEO_LIST_FILE'),
 };
