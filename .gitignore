@@ -4,3 +4,7 @@ node_modules
 *.webm
 dist/episode*
 .env
+downloaded-videos
+episode.mp3
+screenshot.html
+thumbnail.jpg
